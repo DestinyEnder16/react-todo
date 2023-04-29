@@ -1,0 +1,67 @@
+@media screen and (max-width: 53.75em) {
+  body {
+    width: 100vw;
+    font-size: 1.5rem;
+  }
+
+  .todo {
+    margin: 6rem 2rem;
+    overflow-x: hidden;
+  }
+
+  .task {
+    width: 95vw;
+    padding: 0rem 2rem 2rem 2rem;
+  }
+
+  #action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 25rem;
+  }
+
+  #action-buttons .special-button {
+    justify-self: center;
+  }
+
+  #action-buttons .special-button:last-of-type {
+    grid-column: 1 / span 2;
+  }
+
+  input[type='search'] {
+    padding-left: 1rem;
+  }
+}
+
+/* 800px */
+@media (max-width: 50em) {
+  #action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  #action-buttons .special-button:last-of-type {
+    grid-column: initial;
+  }
+}
+
+/* 400px */
+@media (max-width: 25em) {
+  body {
+    font-size: 1.3rem;
+  }
+
+  .special-button {
+    padding: 1.2rem;
+  }
+}
+
+/* 360px */
+@media (max-width: 22.5em) {
+  .task {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}

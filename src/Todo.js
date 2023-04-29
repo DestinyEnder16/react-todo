@@ -233,44 +233,40 @@ export default function Todo() {
             : null}
         </ul>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            marginTop: '5rem',
-          }}
-        >
-          <Button handleAction={handleClick} className={'special-button'}>
-            Add A New Task
-          </Button>
+        <div className="flex-col">
+          <div id="action-buttons">
+            <Button handleAction={handleClick} className={'special-button'}>
+              Add A New Task
+            </Button>
 
-          <Button handleAction={handleClear} className={'special-button'}>
-            Clear Tasks
-          </Button>
+            <Button handleAction={handleClear} className={'special-button'}>
+              Clear Tasks
+            </Button>
 
-          <Button handleAction={handleSort} className={'special-button'}>
-            Sort Tasks
-          </Button>
-        </div>
+            <Button handleAction={handleSort} className={'special-button'}>
+              Sort Tasks
+            </Button>
+          </div>
 
-        <div id="input-todo">
-          <input
-            type="text"
-            placeholder="Enter Your Text Here"
-            ref={myRef}
-            required
-          />
+          <div id="input-todo">
+            <input
+              type="text"
+              placeholder="Enter Your Text Here"
+              ref={myRef}
+              required
+            />
 
-          <button
-            type="submit"
-            onClick={(e) => {
-              handleAdd(myRef.current.value);
-              setState('add');
-            }}
-            className="special-button"
-          >
-            Submit
-          </button>
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleAdd(myRef.current.value);
+                setState('add');
+              }}
+              className="special-button"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </>
@@ -284,6 +280,7 @@ function Button({ handleAction, className, children, isDisabled = false }) {
         onClick={handleAction}
         className={className}
         disabled={isDisabled}
+        type="button"
       >
         {children}
       </button>
