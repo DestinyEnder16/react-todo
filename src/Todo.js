@@ -1,33 +1,46 @@
-// import { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+// import { PencilLine } from '@phosphor-icons/react';
+import { PencilLine, Trash } from '@phosphor-icons/react';
 
 import { useRef, useState } from 'react';
 import { useImmerReducer } from 'use-immer';
-// import useImmerReducer from 'use'
 
 export default function Todo() {
   // HOOKS IMPORTANT
+
+  // just to select the input field in the DOM
   const myRef = useRef(null);
 
+  // Getting data from the user's local storage.
   const data = JSON.parse(window.localStorage.getItem('todo'));
 
   const [tasks, dispatch] = useImmerReducer(tasksReducer, data || []);
 
   const [text, setText] = useState('');
 
-  const [state, setState] = useState('welcome');
+  const [message, setMessage] = useState('welcome');
 
+  // handles storage management
+  function handleStorage(object) {
+    window.localStorage.setItem('todo', JSON.stringify(object));
+  }
+
+  // This function handles the adding, deleting, filtering and deleting of tasks
   function tasksReducer(draft, action) {
     switch (action.type) {
       case 'add': {
         draft.push({ done: false, name: action.text, id: action.id });
-        window.localStorage.setItem('todo', JSON.stringify(draft));
+
+        // update the local storage
+        handleStorage(draft);
         break;
       }
 
       case 'delete': {
         const newTasks = data.filter((task) => task.id !== action.id);
-        window.localStorage.setItem('todo', JSON.stringify(newTasks));
+
+        // update the local storage
+        handleStorage(newTasks);
         return newTasks;
       }
 
@@ -44,7 +57,7 @@ export default function Todo() {
 
         const newTasks = data.filter((task) => task.id !== action.id);
         newTasks.push(foundTask);
-        window.localStorage.setItem('todo', JSON.stringify(newTasks));
+        handleStorage(newTasks);
 
         break;
       }
@@ -67,16 +80,16 @@ export default function Todo() {
       case 'sort': {
         const sortedTasks = data.sort((a, b) => {
           if (a.done === true && b.done === false) {
-            return -1;
-          } else if (a.done === false && b.done === true) {
             return 1;
+          } else if (a.done === false && b.done === true) {
+            return -1;
           } else {
             return 0;
           }
         });
 
         console.log(sortedTasks);
-        window.localStorage.setItem('todo', JSON.stringify(sortedTasks));
+        handleStorage(sortedTasks);
         return sortedTasks;
       }
 
@@ -102,7 +115,7 @@ export default function Todo() {
       text: task,
     });
 
-    window.localStorage.setItem('todo', JSON.stringify(tasks));
+    handleStorage(tasks);
   }
 
   function handleEdit(id, text) {
@@ -141,9 +154,14 @@ export default function Todo() {
     }
   }
 
+  // clearing the user's local storage
   function handleClear() {
-    window.localStorage.clear();
-    window.location.reload();
+    const confirm = window.confirm('Do you really want to clear your todo?');
+
+    if (confirm) {
+      window.localStorage.clear();
+      window.location.reload();
+    }
   }
 
   function handleCheckBoxUpdate(taskId) {
@@ -159,22 +177,24 @@ export default function Todo() {
     });
   }
 
-  let message = '';
-  if (state === 'welcome') {
-    message = 'Welcome!';
-  } else if (state === 'add') {
-    message = 'New Task Added!';
+  // setting the notification message
+  let notification = '';
+  if (message === 'welcome') {
+    notification = 'Welcome!';
+  } else if (message === 'add') {
+    notification = 'New Task Added!';
   } else {
-    message = 'Task Deleted.';
+    notification = 'Task Deleted.';
   }
 
   return (
     <>
-      <div className={`notification-bar ${state.toLowerCase()}`}>
-        <span>{message}</span>
+      <div className={`notification-bar ${message}`}>
+        <span>{notification}</span>
       </div>
 
-      <h1>Todo!</h1>
+      <h1>Must-Do!!</h1>
+
       <div className="todo">
         <input
           type="search"
@@ -184,7 +204,7 @@ export default function Todo() {
           disabled={data ? false : true}
         />
 
-        <ul id="todo-list">
+        <ul id={tasks ? '#todo-list' : ''}>
           {tasks
             ? tasks.map((task) => {
                 return (
@@ -193,11 +213,10 @@ export default function Todo() {
                       onClick={() => {
                         document
                           .querySelectorAll('.action-button')
-                          .forEach((button) => {
-                            button.classList.toggle('visible');
+                          .forEach((task) => {
+                            task.classList.toggle('visible');
                           });
                       }}
-                      id="task"
                     >
                       <input
                         type="checkbox"
@@ -212,19 +231,19 @@ export default function Todo() {
                       <Button
                         handleAction={() => {
                           handleDelete(task.id);
-                          setState('delete');
+                          setMessage('delete');
                         }}
-                        className={'special-button action-button'}
+                        className={'action-button'}
                       >
-                        Delete Task
+                        <Trash size={25} color="#b52c39" />
                       </Button>
 
                       <Button
                         handleAction={() => handleEdit(task.id, task.name)}
-                        className={'special-button action-button'}
+                        className={'action-button'}
                         isDisabled={task.done ? true : false}
                       >
-                        Edit Task
+                        <PencilLine size={25} color="#1a0" />
                       </Button>
                     </div>
                   </li>
@@ -233,18 +252,19 @@ export default function Todo() {
             : null}
         </ul>
 
+        {/* TASK BUTTONS */}
         <div className="flex-col">
           <div id="action-buttons">
             <Button handleAction={handleClick} className={'special-button'}>
-              Add A New Task
+              Add New
             </Button>
 
             <Button handleAction={handleClear} className={'special-button'}>
-              Clear Tasks
+              Clear
             </Button>
 
             <Button handleAction={handleSort} className={'special-button'}>
-              Sort Tasks
+              Sort
             </Button>
           </div>
 
@@ -260,7 +280,7 @@ export default function Todo() {
               type="submit"
               onClick={(e) => {
                 handleAdd(myRef.current.value);
-                setState('add');
+                setMessage('add');
               }}
               className="special-button"
             >
@@ -276,14 +296,15 @@ export default function Todo() {
 function Button({ handleAction, className, children, isDisabled = false }) {
   return (
     <>
-      <button
+      <span
         onClick={handleAction}
         className={className}
         disabled={isDisabled}
         type="button"
       >
+        {/* <PencilLine size={32} color="#2cacb5" />{' '} */}
         {children}
-      </button>
+      </span>
     </>
   );
 }

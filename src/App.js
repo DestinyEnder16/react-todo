@@ -1,13 +1,11 @@
 import Todo from './Todo';
-import './App.css';
+import './index.css';
 import './Media.css';
 
-function App() {
+export default function App() {
   return (
     <>
       <Todo />
     </>
   );
 }
-
-export default App;

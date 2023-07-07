@@ -1,26 +1,51 @@
-@media screen and (max-width: 53.75em) {
+/* 1150px */
+@media screen and (min-width: 71.875em) {
+  h1 {
+    font-size: 5rem;
+    margin-top: 10rem;
+  }
+
+  .task {
+    font-size: 2rem;
+  }
+
+  input[type='search'],
+  #input-todo input {
+    padding: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .notification-bar {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 53.75em) {
   body {
     width: 100vw;
     font-size: 1.5rem;
   }
 
+  h1 {
+    margin-top: 8rem;
+  }
+
   .todo {
-    margin: 6rem 2rem;
+    padding-top: 6rem;
+    padding-left: 1.5rem;
     overflow-x: hidden;
   }
 
   .task {
     width: 95vw;
-    padding: 0rem 2rem 2rem 2rem;
   }
 
   #action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-self: center;
-    gap: 2rem;
     margin-top: 3rem;
-    width: 25rem;
+    width: 100vw;
   }
 
   #action-buttons .special-button {
@@ -34,12 +59,20 @@
   input[type='search'] {
     padding-left: 1rem;
   }
+
+  #input-todo input {
+    width: 80vw;
+  }
 }
 
 /* 800px */
-@media (max-width: 50em) {
+@media (min-width: 50em) {
+  .task {
+    padding: 2rem;
+  }
+
   #action-buttons {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   #action-buttons .special-button:last-of-type {
@@ -48,20 +81,26 @@
 }
 
 /* 400px */
-@media (max-width: 25em) {
+@media (min-width: 25em) {
   body {
     font-size: 1.3rem;
+  }
+
+  .task {
+    padding: 1.5rem;
   }
 
   .special-button {
     padding: 1.2rem;
   }
+
+  #action-buttons {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 80vw;
+    row-gap: 2rem;
+  }
 }
 
 /* 360px */
-@media (max-width: 22.5em) {
-  .task {
-    flex-direction: column;
-    gap: 3rem;
-  }
+@media (min-width: 22.5em) {
 }
