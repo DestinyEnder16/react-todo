@@ -224,7 +224,7 @@ export default function Todo() {
                         className="checkbox"
                         onChange={() => handleCheckBoxUpdate(task.id)}
                       />
-                      <span>{task.name}</span>
+                      <label>{task.name}</label>
                     </div>
 
                     <div id="action-button__group">
