@@ -9,6 +9,10 @@
     font-size: 2rem;
   }
 
+  #todo-list {
+    height: 50rem;
+  }
+
   input[type='search'],
   #input-todo input {
     padding: 1.5rem;
@@ -20,6 +24,7 @@
   }
 }
 
+/* 860px */
 @media screen and (min-width: 53.75em) {
   body {
     width: 100vw;
@@ -69,6 +74,10 @@
 @media (min-width: 50em) {
   .task {
     padding: 2rem;
+  }
+
+  #todo-list {
+    height: 40rem;
   }
 
   #action-buttons {

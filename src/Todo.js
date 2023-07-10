@@ -204,7 +204,7 @@ export default function Todo() {
           disabled={data ? false : true}
         />
 
-        <ul id={tasks ? '#todo-list' : ''}>
+        <ul id={tasks ? 'todo-list' : ''}>
           {tasks
             ? tasks.map((task) => {
                 return (
@@ -235,7 +235,7 @@ export default function Todo() {
                         }}
                         className={'action-button'}
                       >
-                        <Trash size={25} color="#b52c39" />
+                        <Trash size={25} color="#bb2139" />
                       </Button>
 
                       <Button
@@ -271,7 +271,7 @@ export default function Todo() {
           <div id="input-todo">
             <input
               type="text"
-              placeholder="Enter Your Text Here"
+              placeholder="Enter Your Task Here"
               ref={myRef}
               required
             />
@@ -282,7 +282,7 @@ export default function Todo() {
                 handleAdd(myRef.current.value);
                 setMessage('add');
               }}
-              className="special-button"
+              className="special-button submit"
             >
               Submit
             </button>

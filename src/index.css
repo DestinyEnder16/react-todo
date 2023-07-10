@@ -34,7 +34,7 @@ a {
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', 'Nunito Sans Normal', sans-serif;
   font-size: 1.8rem;
   max-width: 100rem;
   color: rgb(243, 240, 236);
@@ -70,7 +70,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Marck Script', cursive;
+  font-family: 'Marck Script', 'Yellowtail', fantasy;
   font-weight: 500;
   font-size: 3rem;
   margin: 5rem 0;
@@ -91,19 +91,20 @@ input[type='search'] {
 }
 
 #todo-list {
-  height: 40rem;
+  height: 30rem;
   overflow-y: auto;
   margin-top: 3rem;
-  border-bottom: 2px solid #faebd7;
+  /* border-bottom: 2px solid #faebd7; */
 }
 
 .task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #faebd7;
+  border-bottom: 1px solid #008080;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  padding: 0.5rem 0;
 }
 
 .task label {
@@ -123,6 +124,10 @@ input[type='search'] {
   font-size: 1.5rem;
 }
 
+.special-button:focus {
+  background: teal;
+}
+
 .button.special-button {
   border: none;
 }
@@ -139,7 +144,6 @@ input[type='search'] {
 #action-buttons {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 5rem;
   width: 100%;
 }
 
@@ -190,7 +194,7 @@ input:disabled {
 
 #input-todo input {
   padding: 0.5rem;
-  width: max-content;
+  width: 100%;
   font-family: inherit;
 }
 
@@ -201,6 +205,10 @@ input:disabled {
 
 input[type='checkbox'] {
   cursor: pointer;
+}
+
+.submit {
+  border: none;
 }
 
 .flex-col {
